@@ -1,0 +1,121 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Debug.s
+    2 00000000         ; Debugging dump
+    3 00000000         ; Variables are in Debug.h    
+    4 00000000         ; Put your names here
+    5 00000000         ; Last modification: January 1, 2023
+    6 00000000         ; Variables are in Debug.h    
+    7 00000000         ; Debug.s and Debug.h are in the inc folder, so you can 
+                       use it in other labs
+    8 00000000         
+    9 00000000                 IMPORT           DumpBuf1
+   10 00000000                 IMPORT           DumpBuf2
+   11 00000000         ; two 32-element buffers for debugging dump
+   12 00000000                 IMPORT           DumpIndex
+   13 00000000         ; DumpIndex is the index from 0 to 31, 32 means full
+   14 00000000                 AREA             |.text|, CODE, READONLY, ALIGN=
+2
+   15 00000000                 THUMB
+   16 00000000                 EXPORT           Debug_Init
+   17 00000000         ;initialize recording
+   18 00000000         ;buffers are empty when DumpIndex=0
+   19 00000000         ;buffers are full when DumpIndex>49
+   20 00000000         Debug_Init
+   21 00000000 4902            LDR              R1,=DumpIndex
+   22 00000002 F04F 0000       MOV              R0,#0
+   23 00000006 6008            STR              R0,[R1]     ;DumpIndex=0 
+   24 00000008 4770            BX               LR
+   25 0000000A                 EXPORT           Debug_Dump
+   26 0000000A         ;Dump information into buffers
+   27 0000000A         ;Input: R0 is any 32-bit value 
+   28 0000000A         ;       R1 is any 32-bit value
+   29 0000000A         Debug_Dump
+   30 0000000A         ;pseudo code
+   31 0000000A         ;0)save registers according to AAPCS
+   32 0000000A         ;1)if DumpIndex is greater than 31, skip to 5)
+   33 0000000A         ;2)store R0 into DumpBuf1 at index DumpIndex 
+   34 0000000A         ; effective address is DumpBuf1+4*DumpIndex
+   35 0000000A         ;3)store R1 into DumpBuf2 at index DumpIndex
+   36 0000000A         ; effective address is DumpBuf2+4*DumpIndex
+   37 0000000A         ;4)DumpIndex = DumpIndex+1
+   38 0000000A         ;5)restore registers (balance stack)
+   39 0000000A         
+   40 0000000A 4770            BX               LR
+   41 0000000C                 ALIGN            4
+   42 0000000C                 END
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931,A1950W --cpu=Cortex-M4 --fpu=
+SoftVFP --depend=.\debug.d -o.\debug.o -I.\RTE\_Lab5 -IC:\Users\neham\AppData\L
+ocal\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include -IC:\Users\neham\AppData\Loca
+l\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 --predefine="__EVAL SETA
+ 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 538" --
+predefine="_RTE_ SETA 1" --predefine="TM4C123GH6PM SETA 1" --predefine="_RTE_ S
+ETA 1" --list=.\debug.lst ..\inc\Debug.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 14 in file ..\inc\Debug.s
+   Uses
+      None
+Comment: .text unused
+Debug_Dump 0000000A
+
+Symbol: Debug_Dump
+   Definitions
+      At line 29 in file ..\inc\Debug.s
+   Uses
+      At line 25 in file ..\inc\Debug.s
+Comment: Debug_Dump used once
+Debug_Init 00000000
+
+Symbol: Debug_Init
+   Definitions
+      At line 20 in file ..\inc\Debug.s
+   Uses
+      At line 16 in file ..\inc\Debug.s
+Comment: Debug_Init used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+DumpBuf1 00000000
+
+Symbol: DumpBuf1
+   Definitions
+      At line 9 in file ..\inc\Debug.s
+   Uses
+      None
+Comment: DumpBuf1 unused
+DumpBuf2 00000000
+
+Symbol: DumpBuf2
+   Definitions
+      At line 10 in file ..\inc\Debug.s
+   Uses
+      None
+Comment: DumpBuf2 unused
+DumpIndex 00000000
+
+Symbol: DumpIndex
+   Definitions
+      At line 12 in file ..\inc\Debug.s
+   Uses
+      At line 21 in file ..\inc\Debug.s
+Comment: DumpIndex used once
+3 symbols
+343 symbols in table
