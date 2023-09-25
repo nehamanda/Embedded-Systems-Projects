@@ -1,5 +1,5 @@
 # Embedded-Systems-Projects
-Lab 1 - Digital lock, I/O, parallel port, direction register and logic function, written in assembly
+Lab 1 - Digital lock, I/O, parallel port, direction register and logic function, written in assembly\n
 Lab 2 - Collision detection, output in multiple languages, written in C
 Lab 3 - Breathing LED - LED and switch interface, circuit measurements, schematics, written in assembly
 Lab 5 - Traffic Light system implemented on breadboard, FSMs, written in C
